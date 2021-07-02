@@ -36,19 +36,13 @@ if __name__ == "__main__":
     import random
     
     pb_path = 'pb/siamese.ckpt-796-10.11599.pb'
-    input_dir = '/home/xiaozhengheng/nfs-75/xiaozhiheng/code/VI/VI_detector/cuted_img/test_new'
-    input_dir_ok = '/home/xiaozhengheng/nfs-75/xiaozhiheng/code/VI/VI_detector/cuted_img/standard_ok'
+    input_dir = ''
+    input_dir_ok = ''
     batch_size = 9
     image_shape = 60
     thresh = 15
     data_1, label_1 = data_load(input_dir, image_shape)
-
     data_2, label_2 = data_load(input_dir_ok, image_shape)
-
-    # NG为0，OK为1
-    # y_list = np.array(label_1==label_2, dtype=np.float32)
-
-    # len_batch_idx = int(len(label_1) // batch_size)
     num_data_1 = len(label_1)
     num_data_2 = len(label_2)
 
@@ -84,7 +78,3 @@ if __name__ == "__main__":
     predict = np.squeeze(np.reshape(np.array(predict, np.int32), [1,-1]), 0)
     label = np.squeeze(np.reshape(np.array(label, np.int32), [1,-1]), 0)
     precision, recall, acc = eval_classfier(predict, label)
-    print('loubao is:', 1 - precision)
-    print('wubao is:', 1 - recall)
-    print('acc is:', acc)
-     

@@ -38,7 +38,9 @@ def data_load(input_dir, image_size):
     for image_name in image_names:
         img = cv2.imread(os.path.join(input_dir, image_name))
         img = cv2.resize(img, (image_size, image_size))
+        img = img / 127.5 - 1
         images.append(img)
+        
         if 'NG' in image_name:
             labels.append(0)
         else:
@@ -51,12 +53,14 @@ def data_load_2(input_dir, image_size):
     img_path_list = []
     for img_class in img_class_list:
         img_path_list += glob(os.path.join(input_dir, img_class, '*.jpg'))
+    
     random.shuffle(img_path_list)
     images = []
     labels = []
     for img_path in img_path_list:
         img = cv2.imread(img_path)
         img = cv2.resize(img, (image_size, image_size))
+        img = img / 127.5 - 1
         images.append(img)
         if '/NG/' in img_path:
             labels.append(0)
