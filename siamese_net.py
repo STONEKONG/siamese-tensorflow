@@ -16,29 +16,6 @@ def siamese_loss(out1, out2, y, M=50, alpha=1.0):
     total_loss = pos_loss + neg_loss 
     return total_loss, pos_loss, neg_loss
 
-# def Siamese(inputs, name, reuse):
-#     with tf.variable_scope(name):
-#         if reuse:
-#             tf.get_variable_scope().reuse_variables()
-#         else:
-#             assert tf.get_variable_scope().reuse is False
-#         conv1 = conv2d(inputs, 5, 32, 1, normal=True, activation='relu', name='conv1')
-#         conv2 = conv2d(conv1, 3, 64, 1, normal=True, activation='relu', name='conv2')
-#         conv3 = conv2d(conv2, 3, 128, 1, normal=True, activation='relu', name='conv3')
-
-#         conv4 = conv2d(conv3, 3, 128, 1, normal=True, activation='relu', name='conv4')
-#         pool1 =  tf.nn.max_pool(conv4, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='pool1')
-
-#         conv5 = conv2d(pool1, 3, 64, 1, normal=True, activation='relu', name='conv5')
-#         pool2 =  tf.nn.max_pool(conv5, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='pool2')
-
-#         conv6 = conv2d(pool2, 3, 32, 1, normal=True, activation='relu', name='conv6')
-#         pool3 =  tf.nn.max_pool(conv6, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='pool3')
-
-#         conv7 = conv2d(pool3, 1, 1, 1, normal=True, activation='None', name='conv7')
-#         pool4 = tf.nn.max_pool(conv7, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID', name='output')
-
-#         return pool4
 
 def Siamese(inputs, name, reuse):
     with tf.variable_scope(name):
@@ -66,9 +43,6 @@ def Siamese(inputs, name, reuse):
 
 
 def train(args):
-    # train_data_dir = '/home/xiaozhiheng/Data/201一代机器数据/class/train'
-    # test_data_dir = '/home/xiaozhiheng/Data/201一代机器数据/class/val'
-
     model_time = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
     save_path = 'checkpoints/' + model_time
     log_dir = 'log/' + model_time
@@ -197,11 +171,10 @@ def parse():
     parser.add_argument('--up_boundary', help='', type=int, default=60)
     parser.add_argument('--img_size', help='train,test sizes', type=int, default=128)
     parser.add_argument('--max_epoch', type=int, default=60)
-    parser.add_argument('--train_data_dir', help='dir of train images', type=str, default='/home/xiaozhiheng/Data/201一代机器数据/class/train')
-    parser.add_argument('--test_data_dir', help='dir of test images', type=str, default='/home/xiaozhiheng/Data/201一代机器数据/class/val')
+    parser.add_argument('--train_data_dir', help='dir of train images', type=str, default='')
+    parser.add_argument('--test_data_dir', help='dir of test images', type=str, default='')
 
     args = parser.parse_args()
-    #  assert os.path.exists(args.img_dir), 'img_dir not exists !!!'
     return args
 
 if __name__ == "__main__":
